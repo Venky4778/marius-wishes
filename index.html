@@ -12,112 +12,330 @@
   --saffron:#D4823A;--saffron-light:#F5E6D3;--saffron-deep:#8B4F1A;
   --maroon:#7B2D3E;--gold:#C8962A;--sage:#5A7A4A;--sage-light:#EBF2E6;
   --cream:#FBF7F0;--text-dark:#1E1A14;--text-mid:#5C4A35;--text-light:#9B8470;
+  --purple:#6B3FA0;--teal:#2A7A6A;
 }
-html,body{min-height:100%;background:var(--cream);color:var(--text-dark);font-family:'Inter',sans-serif;}
-.page{max-width:620px;margin:0 auto;padding:0 1rem 4rem;}
+html,body{min-height:100%;background:var(--cream);color:var(--text-dark);font-family:'Inter',sans-serif;overflow-x:hidden;}
+
+/* ===== PARTICLE CANVAS ===== */
+#particle-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.45;}
+
+/* ===== LAYOUT ===== */
+.site-wrap{position:relative;z-index:1;}
+
+/* ===== FLAGS ===== */
 .flags-wrap{width:100%;overflow:hidden;line-height:0;}
-.hero{text-align:center;padding:2.5rem 1.5rem 2rem;border-bottom:1px solid #E8DDD0;}
+
+/* ===== HERO ===== */
+.hero{
+  text-align:center;
+  padding:2.5rem 1.5rem 2rem;
+  border-bottom:1px solid #E8DDD0;
+  max-width:620px;
+  margin:0 auto;
+  position:relative;
+}
 .dharma{font-size:20px;color:var(--saffron);margin-bottom:0.5rem;letter-spacing:0.12em;}
 .hero-eyebrow{font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:0.14em;color:var(--saffron);text-transform:uppercase;margin-bottom:0.5rem;}
-.hero h1{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:400;line-height:1.2;color:var(--text-dark);margin-bottom:0.75rem;}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:400;line-height:1.2;color:var(--text-dark);margin-bottom:0.75rem;}
 .hero h1 em{font-style:italic;color:var(--maroon);}
 .hero-sub{font-size:15px;color:var(--text-mid);line-height:1.75;max-width:440px;margin:0 auto;}
 .ubuntu{display:block;font-family:'Cormorant Garamond',serif;font-size:13px;font-style:italic;color:var(--text-light);margin-top:1.25rem;padding-top:1rem;border-top:1px solid #E8DDD0;}
-.mandala-divider{text-align:center;color:var(--gold);font-size:16px;letter-spacing:0.35em;margin:1.75rem 0;opacity:0.65;}
-.counter-strip{display:flex;align-items:center;justify-content:center;gap:10px;background:var(--saffron-light);border:0.5px solid #E2C4A0;border-radius:999px;padding:9px 22px;margin:0 auto 1.75rem;width:fit-content;font-size:13px;color:var(--saffron-deep);}
+
+/* ===== COUNTER ===== */
+.counter-strip{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  background:var(--saffron-light);border:0.5px solid #E2C4A0;border-radius:999px;
+  padding:9px 22px;margin:1.75rem auto;width:fit-content;
+  font-size:13px;color:var(--saffron-deep);
+  animation:pulseGlow 3s ease-in-out infinite;
+}
+@keyframes pulseGlow{
+  0%,100%{box-shadow:0 0 0 0 rgba(212,130,58,0.25);}
+  50%{box-shadow:0 0 0 8px rgba(212,130,58,0);}
+}
 .counter-strip strong{font-weight:500;font-size:15px;}
-.form-card{background:#fff;border:0.5px solid #E8DDD0;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;}
+
+/* ===== FORM ===== */
+.form-wrap{max-width:620px;margin:0 auto;padding:0 1rem;}
+.mandala-divider{text-align:center;color:var(--gold);font-size:16px;letter-spacing:0.35em;margin:1.75rem 0;opacity:0.65;}
+.form-card{background:#fff;border:0.5px solid #E8DDD0;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 4px 24px rgba(123,45,62,0.06);}
 .form-card h2{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:var(--maroon);margin-bottom:1.5rem;}
 .field{margin-bottom:1.1rem;}
 .field label{display:block;font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-light);margin-bottom:7px;}
-.field input,.field textarea{width:100%;font-family:'Inter',sans-serif;font-size:14px;border:0.5px solid #D8CEC4;border-radius:10px;padding:11px 14px;background:var(--cream);color:var(--text-dark);outline:none;transition:border-color 0.15s;}
-.field input:focus,.field textarea:focus{border-color:var(--saffron);background:#fff;}
+.field input,.field textarea{width:100%;font-family:'Inter',sans-serif;font-size:14px;border:0.5px solid #D8CEC4;border-radius:10px;padding:11px 14px;background:var(--cream);color:var(--text-dark);outline:none;transition:border-color 0.15s,box-shadow 0.15s;}
+.field input:focus,.field textarea:focus{border-color:var(--saffron);background:#fff;box-shadow:0 0 0 3px rgba(212,130,58,0.12);}
 .field textarea{min-height:120px;resize:vertical;line-height:1.6;}
 .vibes{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;}
 .vibe-btn{display:flex;align-items:center;gap:6px;background:var(--cream);border:0.5px solid #D8CEC4;border-radius:999px;padding:7px 15px;font-size:13px;color:var(--text-mid);cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.15s;}
 .vibe-btn:hover,.vibe-btn.sel{background:var(--saffron-light);border-color:var(--saffron);color:var(--saffron-deep);}
-.submit-btn{width:100%;padding:14px;background:var(--maroon);color:#FBF0E6;border:none;border-radius:10px;font-size:15px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;letter-spacing:0.02em;transition:background 0.15s;margin-top:0.75rem;}
-.submit-btn:hover{background:var(--saffron-deep);}
-.submit-btn:disabled{opacity:0.6;cursor:not-allowed;}
+.submit-btn{width:100%;padding:14px;background:var(--maroon);color:#FBF0E6;border:none;border-radius:10px;font-size:15px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;letter-spacing:0.02em;transition:all 0.2s;margin-top:0.75rem;position:relative;overflow:hidden;}
+.submit-btn::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent);transform:translateX(-100%);transition:transform 0.4s ease;}
+.submit-btn:hover::after{transform:translateX(100%);}
+.submit-btn:hover{background:var(--saffron-deep);transform:translateY(-1px);box-shadow:0 4px 16px rgba(123,45,62,0.3);}
+.submit-btn:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
 .toast{display:none;background:var(--sage-light);border:0.5px solid #A8C498;border-radius:10px;color:var(--sage);font-size:14px;padding:13px 16px;margin-bottom:1rem;text-align:center;}
 .error-msg{display:none;background:#FDE8E8;border:0.5px solid #F5A5A5;border-radius:10px;color:#8B2020;font-size:14px;padding:13px 16px;margin-bottom:1rem;text-align:center;}
-.wishes-head{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:var(--text-dark);margin-bottom:1rem;display:flex;align-items:center;gap:8px;}
-.wish-card{background:#fff;border:0.5px solid #E8DDD0;border-left:3px solid var(--saffron);border-radius:12px;padding:1.1rem 1.25rem;margin-bottom:0.85rem;animation:fadeIn 0.4s ease;}
-@keyframes fadeIn{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:none;}}
-.wish-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
+
+/* ===== SCATTERED MESSAGES WALL ===== */
+.wishes-section{
+  padding:2rem 1rem 3rem;
+  max-width:1400px;
+  margin:0 auto;
+}
+.wishes-head{
+  font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;
+  color:var(--text-dark);margin-bottom:0.5rem;
+  text-align:center;
+}
+.wishes-subhead{
+  text-align:center;font-size:13px;color:var(--text-light);
+  font-style:italic;margin-bottom:2rem;
+}
+
+/* Scattered / masonry wall */
+.wish-wall{
+  position:relative;
+  width:100%;
+  min-height:400px;
+}
+
+/* Masonry columns layout — scattered look via random rotations and column offsets */
+.wish-columns{
+  display:flex;
+  gap:16px;
+  align-items:flex-start;
+  flex-wrap:nowrap;
+}
+@media(max-width:900px){
+  .wish-columns{flex-wrap:wrap;}
+  .wish-col{width:calc(50% - 8px) !important;}
+}
+@media(max-width:560px){
+  .wish-col{width:100% !important;}
+}
+.wish-col{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+/* Individual cards — scattered personality */
+.wish-card{
+  background:#fff;
+  border:0.5px solid #E8DDD0;
+  border-radius:12px;
+  padding:1rem 1.2rem;
+  position:relative;
+  animation:popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+  transition:transform 0.25s ease, box-shadow 0.25s ease;
+  cursor:default;
+  will-change:transform;
+}
+.wish-card:hover{
+  transform:rotate(0deg) scale(1.03) translateY(-4px) !important;
+  box-shadow:0 12px 40px rgba(0,0,0,0.14) !important;
+  z-index:10;
+}
+@keyframes popIn{
+  from{opacity:0;transform:scale(0.8) translateY(20px);}
+  to{opacity:1;}
+}
+
+/* Color accent strips — left border color varies */
+.wish-card[data-accent="saffron"]{border-left:3px solid var(--saffron);}
+.wish-card[data-accent="maroon"]{border-left:3px solid var(--maroon);}
+.wish-card[data-accent="gold"]{border-left:3px solid var(--gold);}
+.wish-card[data-accent="sage"]{border-left:3px solid var(--sage);}
+.wish-card[data-accent="purple"]{border-left:3px solid var(--purple);}
+.wish-card[data-accent="teal"]{border-left:3px solid var(--teal);}
+
+/* Background tints per accent */
+.wish-card[data-accent="saffron"]{background:linear-gradient(135deg,#fff 70%,rgba(212,130,58,0.05));}
+.wish-card[data-accent="maroon"]{background:linear-gradient(135deg,#fff 70%,rgba(123,45,62,0.05));}
+.wish-card[data-accent="gold"]{background:linear-gradient(135deg,#fff 70%,rgba(200,150,42,0.05));}
+.wish-card[data-accent="sage"]{background:linear-gradient(135deg,#fff 70%,rgba(90,122,74,0.05));}
+.wish-card[data-accent="purple"]{background:linear-gradient(135deg,#fff 70%,rgba(107,63,160,0.05));}
+.wish-card[data-accent="teal"]{background:linear-gradient(135deg,#fff 70%,rgba(42,122,106,0.05));}
+
+/* Emoji badge */
+.wish-emoji{
+  position:absolute;
+  top:-10px;right:14px;
+  font-size:20px;
+  filter:drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+}
+.wish-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;gap:8px;}
 .wish-name{font-size:14px;font-weight:500;color:var(--text-dark);}
-.wish-vibe{font-size:12px;color:var(--text-light);font-style:italic;}
-.wish-text{font-size:14px;color:var(--text-mid);line-height:1.75;}
-.wish-time{font-size:11px;color:var(--text-light);margin-top:7px;}
+.wish-vibe{
+  font-size:11px;color:#fff;font-style:italic;
+  background:var(--saffron);padding:2px 8px;border-radius:999px;
+  white-space:nowrap;flex-shrink:0;
+}
+.wish-card[data-accent="maroon"] .wish-vibe{background:var(--maroon);}
+.wish-card[data-accent="gold"] .wish-vibe{background:var(--gold);}
+.wish-card[data-accent="sage"] .wish-vibe{background:var(--sage);}
+.wish-card[data-accent="purple"] .wish-vibe{background:var(--purple);}
+.wish-card[data-accent="teal"] .wish-vibe{background:var(--teal);}
+
+.wish-text{font-size:14px;color:var(--text-mid);line-height:1.75;font-family:'Cormorant Garamond',serif;font-size:16px;}
+.wish-time{font-size:11px;color:var(--text-light);margin-top:8px;text-align:right;}
+
 .loading{text-align:center;padding:2rem;color:var(--text-light);font-size:14px;font-style:italic;}
 .empty{text-align:center;padding:2rem;color:var(--text-light);font-size:14px;font-style:italic;display:none;}
-.footer{text-align:center;font-size:12px;color:var(--text-light);margin-top:2.5rem;font-style:italic;border-top:1px solid #E8DDD0;padding-top:1.5rem;}
-@media(max-width:480px){.hero h1{font-size:28px;}.form-card{padding:1.25rem;}}
+
+/* Footer */
+.footer{text-align:center;font-size:12px;color:var(--text-light);margin-top:2.5rem;font-style:italic;border-top:1px solid #E8DDD0;padding-top:1.5rem;padding-bottom:2rem;max-width:620px;margin-left:auto;margin-right:auto;}
+
+/* Floating confetti burst on submit */
+.confetti-piece{
+  position:fixed;
+  width:8px;height:8px;
+  border-radius:2px;
+  pointer-events:none;
+  z-index:9999;
+  animation:confettiFall 1.4s ease-in forwards;
+}
+@keyframes confettiFall{
+  0%{transform:translate(0,0) rotate(0deg);opacity:1;}
+  100%{transform:translate(var(--tx),var(--ty)) rotate(720deg);opacity:0;}
+}
+
+@media(max-width:480px){
+  .hero h1{font-size:30px;}
+  .form-card{padding:1.25rem;}
+}
 </style>
 </head>
 <body>
-<div class="page">
 
-<div class="flags-wrap">
-<svg id="flagsvg" width="100%" height="36" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"></svg>
-</div>
+<!-- Particle canvas -->
+<canvas id="particle-canvas"></canvas>
 
-<div class="hero">
-  <p class="dharma">&#9784; &middot; &#9784; &middot; &#9784;</p>
-  <p class="hero-eyebrow">A journey well travelled</p>
-  <h1>Here&#39;s to you,<br><em>Marius O</em></h1>
-  <p class="hero-sub">From the Highveld to wherever the next chapter leads &mdash; share your message and let him carry your words into this new season of life.</p>
-  <span class="ubuntu">&ldquo;Umuntu ngumuntu ngabantu&rdquo; &mdash; a person is a person through other people.</span>
-</div>
-
-<div class="mandala-divider">&middot; &#x19D8; &middot; &#x19D8; &middot; &#x19D8; &middot;</div>
-
-<div class="counter-strip">
-  <span>&#x1F64F;</span>
-  <span><strong id="count">...</strong> messages of goodwill</span>
-</div>
-
-<div class="form-card">
-  <h2>&#9784; Leave your wish for Marius</h2>
-  <div class="toast" id="toast">Your wish has been sent &mdash; may it travel far. &#x1F64F;</div>
-  <div class="error-msg" id="error">Something went wrong. Please try again.</div>
-  <div class="field">
-    <label>Your name</label>
-    <input type="text" id="name-in" placeholder="e.g. Thabo from the Joburg office"/>
+<div class="site-wrap">
+  <div class="flags-wrap">
+    <svg id="flagsvg" width="100%" height="36" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"></svg>
   </div>
-  <div class="field">
-    <label>Your message</label>
-    <textarea id="msg-in" placeholder="A memory, a thank you, a blessing..."></textarea>
+
+  <div class="hero">
+    <p class="dharma">&#9784; &middot; &#9784; &middot; &#9784;</p>
+    <p class="hero-eyebrow">A journey well travelled</p>
+    <h1>Here&#39;s to you,<br><em>Marius O</em></h1>
+    <p class="hero-sub">From the Highveld to wherever the next chapter leads &mdash; share your message and let him carry your words into this new season of life.</p>
+    <span class="ubuntu">&ldquo;Umuntu ngumuntu ngabantu&rdquo; &mdash; a person is a person through other people.</span>
   </div>
-  <div class="field">
-    <label>Your tone</label>
-    <div class="vibes">
-      <button class="vibe-btn sel" data-v="Grateful">&#x1F64F; Grateful</button>
-      <button class="vibe-btn" data-v="Celebratory">&#x1F389; Celebratory</button>
-      <button class="vibe-btn" data-v="Warm">&#x2764; Warm</button>
-      <button class="vibe-btn" data-v="Nostalgic">&#x1F305; Nostalgic</button>
-      <button class="vibe-btn" data-v="Cheeky">&#x1F604; Cheeky</button>
+
+  <div class="form-wrap">
+    <div class="mandala-divider">&middot; &#x19D8; &middot; &#x19D8; &middot; &#x19D8; &middot;</div>
+    <div class="counter-strip">
+      <span>&#x1F64F;</span>
+      <span><strong id="count">...</strong> messages of goodwill</span>
+    </div>
+
+    <div class="form-card">
+      <h2>&#9784; Leave your wish for Marius</h2>
+      <div class="toast" id="toast">Your wish has been sent &mdash; may it travel far. &#x1F64F;</div>
+      <div class="error-msg" id="error">Something went wrong. Please try again.</div>
+      <div class="field">
+        <label>Your name</label>
+        <input type="text" id="name-in" placeholder="e.g. Thabo from the Joburg office"/>
+      </div>
+      <div class="field">
+        <label>Your message</label>
+        <textarea id="msg-in" placeholder="A memory, a thank you, a blessing..."></textarea>
+      </div>
+      <div class="field">
+        <label>Your tone</label>
+        <div class="vibes">
+          <button class="vibe-btn sel" data-v="Grateful">&#x1F64F; Grateful</button>
+          <button class="vibe-btn" data-v="Celebratory">&#x1F389; Celebratory</button>
+          <button class="vibe-btn" data-v="Warm">&#x2764; Warm</button>
+          <button class="vibe-btn" data-v="Nostalgic">&#x1F305; Nostalgic</button>
+          <button class="vibe-btn" data-v="Cheeky">&#x1F604; Cheeky</button>
+        </div>
+      </div>
+      <button class="submit-btn" id="submit-btn">Send my wish &rarr;</button>
+    </div>
+  </div><!-- /form-wrap -->
+
+  <div class="wishes-section">
+    <h2 class="wishes-head">&#9784; Messages for Marius</h2>
+    <p class="wishes-subhead">Hover a card to read it fully &mdash; each one a voice from his journey</p>
+    <div class="wish-wall">
+      <div id="wishes-list" class="wish-columns"></div>
+      <p class="loading" id="loading-msg">Loading messages...</p>
+      <p class="empty" id="empty">Be the first to leave a wish for Marius!</p>
     </div>
   </div>
-  <button class="submit-btn" id="submit-btn">Send my wish &rarr;</button>
-</div>
 
-<div>
-  <h2 class="wishes-head">&#9784; Messages left so far</h2>
-  <div id="wishes-list"><p class="loading">Loading messages...</p></div>
-  <p class="empty" id="empty">Be the first to leave a wish for Marius!</p>
-</div>
-
-<p class="footer">Made with love by your team &nbsp;&middot;&nbsp; May your path be peaceful &#x1F64F;</p>
-</div>
+  <p class="footer">Made with love by your team &nbsp;&middot;&nbsp; May your path be peaceful &#x1F64F;</p>
+</div><!-- /site-wrap -->
 
 <script>
+/* ============================================================
+   CONFIG
+   ============================================================ */
 var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzpVPZviO1sdZBD_WwQPfoTHEAJMpPkjUmGi4LhF2-Dn9hUDv-pEI8uasLrTiahhDq5/exec";
 
+/* ============================================================
+   PARTICLE BACKGROUND
+   ============================================================ */
+(function initParticles(){
+  var canvas = document.getElementById('particle-canvas');
+  var ctx = canvas.getContext('2d');
+  var W, H, particles = [];
+
+  var COLORS = ['#D4823A','#7B2D3E','#C8962A','#5A7A4A','#6B3FA0','#2A7A6A'];
+  var SYMBOLS = ['✦','✧','·','◦','*','∘','⊹'];
+
+  function resize(){
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function randBetween(a,b){ return a + Math.random()*(b-a); }
+
+  function Particle(){
+    this.x = randBetween(0, W);
+    this.y = randBetween(-H, H);
+    this.size = randBetween(8,20);
+    this.speed = randBetween(0.15, 0.5);
+    this.opacity = randBetween(0.1, 0.4);
+    this.color = COLORS[Math.floor(Math.random()*COLORS.length)];
+    this.symbol = SYMBOLS[Math.floor(Math.random()*SYMBOLS.length)];
+    this.drift = randBetween(-0.3, 0.3);
+  }
+
+  for(var i=0;i<60;i++){ particles.push(new Particle()); }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    particles.forEach(function(p){
+      ctx.save();
+      ctx.globalAlpha = p.opacity;
+      ctx.fillStyle = p.color;
+      ctx.font = p.size+'px serif';
+      ctx.fillText(p.symbol, p.x, p.y);
+      ctx.restore();
+      p.y += p.speed;
+      p.x += p.drift;
+      if(p.y > H+20){ p.y=-20; p.x=randBetween(0,W); }
+      if(p.x<-20||p.x>W+20){ p.x=randBetween(0,W); p.y=randBetween(-H,0); }
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ============================================================
+   FLAGS
+   ============================================================ */
 (function drawFlags(){
   var svg=document.getElementById('flagsvg');
   var colors=['#D4823A','#7B2D3E','#C8962A','#5A7A4A','#9B4EA0'];
-  var fW=38,fH=28,gap=2,total=18;
+  var fW=38,fH=28,gap=2,total=28;
   var line=document.createElementNS('http://www.w3.org/2000/svg','line');
   line.setAttribute('x1','0');line.setAttribute('y1','4');
   line.setAttribute('x2','100%');line.setAttribute('y2','4');
@@ -133,6 +351,9 @@ var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzpVPZviO1sdZBD_WwQPfo
   }
 })();
 
+/* ============================================================
+   VIBE SELECTOR
+   ============================================================ */
 var sel = 'Grateful';
 document.querySelectorAll('.vibe-btn').forEach(function(b){
   b.addEventListener('click',function(){
@@ -141,7 +362,10 @@ document.querySelectorAll('.vibe-btn').forEach(function(b){
   });
 });
 
-function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+/* ============================================================
+   UTILS
+   ============================================================ */
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
 function timeAgo(ts){
   var d=Math.floor((Date.now()-ts)/1000);
@@ -151,49 +375,138 @@ function timeAgo(ts){
   return Math.floor(d/86400)+' day(s) ago';
 }
 
+/* ============================================================
+   SCATTERED CARD LAYOUT
+   Uses 4 columns; cards distributed across them with slight
+   random rotation for a "pinned notes" feel.
+   ============================================================ */
+var ACCENTS = ['saffron','maroon','gold','sage','purple','teal'];
+var VIBEEMOJI = {
+  'Grateful':'🙏','Celebratory':'🎉','Warm':'❤️',
+  'Nostalgic':'🌅','Cheeky':'😄'
+};
+var ROTATIONS = [-2.5,-1.5,-0.8,0,0.8,1.5,2.5,1.2,-1.2,2.0,-2.0,0.5,-0.5];
+
+function buildColumns(count){
+  var numCols = count <= 3 ? Math.max(count,1) : (window.innerWidth > 900 ? 4 : 2);
+  var container = document.getElementById('wishes-list');
+  container.innerHTML='';
+  container.className='wish-columns';
+  var cols=[];
+  for(var c=0;c<numCols;c++){
+    var col=document.createElement('div');
+    col.className='wish-col';
+    // stagger columns vertically for scattered feel
+    if(c===1) col.style.marginTop='32px';
+    if(c===2) col.style.marginTop='16px';
+    if(c===3) col.style.marginTop='48px';
+    container.appendChild(col);
+    cols.push(col);
+  }
+  return cols;
+}
+
+function makeCard(w, idx){
+  var accent = ACCENTS[idx % ACCENTS.length];
+  var rot = ROTATIONS[idx % ROTATIONS.length];
+  var emoji = VIBEEMOJI[w.vibe] || '✦';
+
+  var card = document.createElement('div');
+  card.className='wish-card';
+  card.setAttribute('data-accent', accent);
+  card.style.transform='rotate('+rot+'deg)';
+  card.style.animationDelay=(idx*0.06)+'s';
+
+  card.innerHTML=
+    '<span class="wish-emoji">'+emoji+'</span>'+
+    '<div class="wish-top">'+
+      '<span class="wish-name">'+esc(w.name)+'</span>'+
+      '<span class="wish-vibe">'+esc(w.vibe)+'</span>'+
+    '</div>'+
+    '<p class="wish-text">'+esc(w.msg)+'</p>'+
+    '<p class="wish-time">'+timeAgo(w.ts)+'</p>';
+
+  // Restore rotation on mouse leave
+  card.addEventListener('mouseenter', function(){ this._rot=rot; });
+  card.addEventListener('mouseleave', function(){
+    this.style.transform='rotate('+this._rot+'deg)';
+    this.style.zIndex='';
+  });
+  return card;
+}
+
+/* ============================================================
+   LOAD WISHES
+   ============================================================ */
 function loadWishes(){
   fetch(SCRIPT_URL)
-    .then(function(r){return r.json();})
+    .then(function(r){ return r.json(); })
     .then(function(data){
-      var list=document.getElementById('wishes-list');
+      var loading=document.getElementById('loading-msg');
       var empty=document.getElementById('empty');
-      list.innerHTML='';
       var wishes=data.wishes||[];
       wishes.reverse();
+
       document.getElementById('count').textContent=wishes.length;
-      if(wishes.length===0){empty.style.display='block';}
-      else{
-        empty.style.display='none';
-        wishes.forEach(function(w){
-          var card=document.createElement('div');
-          card.className='wish-card';
-          card.innerHTML='<div class="wish-top"><span class="wish-name">'+esc(w.name)+'</span><span class="wish-vibe">'+esc(w.vibe)+'</span></div>'
-            +'<p class="wish-text">'+esc(w.msg)+'</p>'
-            +'<p class="wish-time">'+timeAgo(w.ts)+'</p>';
-          list.appendChild(card);
-        });
+      if(loading) loading.style.display='none';
+
+      if(wishes.length===0){
+        document.getElementById('wishes-list').innerHTML='';
+        empty.style.display='block';
+        return;
       }
+      empty.style.display='none';
+
+      var cols=buildColumns(wishes.length);
+
+      wishes.forEach(function(w,i){
+        var col = cols[i % cols.length];
+        col.appendChild(makeCard(w, i));
+      });
     })
     .catch(function(){
-      document.getElementById('wishes-list').innerHTML='<p class="loading">Could not load messages.</p>';
+      var loading=document.getElementById('loading-msg');
+      if(loading) loading.textContent='Could not load messages. Try refreshing.';
       document.getElementById('count').textContent='0';
     });
 }
-
 loadWishes();
 setInterval(loadWishes, 30000);
 
+/* ============================================================
+   CONFETTI BURST
+   ============================================================ */
+function confettiBurst(originX, originY){
+  var colors=['#D4823A','#7B2D3E','#C8962A','#5A7A4A','#6B3FA0'];
+  for(var i=0;i<40;i++){
+    var piece=document.createElement('div');
+    piece.className='confetti-piece';
+    piece.style.left=originX+'px';
+    piece.style.top=originY+'px';
+    piece.style.background=colors[Math.floor(Math.random()*colors.length)];
+    piece.style.setProperty('--tx',(Math.random()*300-150)+'px');
+    piece.style.setProperty('--ty',(Math.random()*-300-50)+'px');
+    piece.style.borderRadius=Math.random()>0.5?'50%':'2px';
+    document.body.appendChild(piece);
+    piece.addEventListener('animationend',function(){ this.remove(); });
+  }
+}
+
+/* ============================================================
+   SUBMIT
+   ============================================================ */
 document.getElementById('submit-btn').addEventListener('click',function(){
   var name=document.getElementById('name-in').value.trim();
   var msg=document.getElementById('msg-in').value.trim();
-  if(!name||!msg){alert('Please add your name and a message.');return;}
+  if(!name||!msg){ alert('Please add your name and a message.'); return; }
   var btn=document.getElementById('submit-btn');
   btn.disabled=true; btn.textContent='Sending...';
+
   fetch(SCRIPT_URL,{
     method:'POST',
     body:JSON.stringify({name:name,msg:msg,vibe:sel})
   })
-  .then(function(r){return r.json();})
+  .then(function(r){ return r.json(); })
   .then(function(data){
     if(data.success){
       document.getElementById('name-in').value='';
@@ -201,6 +514,9 @@ document.getElementById('submit-btn').addEventListener('click',function(){
       var t=document.getElementById('toast');
       t.style.display='block';
       setTimeout(function(){t.style.display='none';},3500);
+      // confetti from button
+      var rect=btn.getBoundingClientRect();
+      confettiBurst(rect.left+rect.width/2, rect.top+rect.height/2);
       loadWishes();
     } else {
       document.getElementById('error').style.display='block';
