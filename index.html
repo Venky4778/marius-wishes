@@ -4,97 +4,289 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Here's to you, Marius O!</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@400;500;600&family=Noto+Serif+Tibetan:wght@400;700&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --ink:#1A0F00;--ink2:#3D2B1A;--muted:#7A6555;
-  --cream:#FDF8F0;--gold:#E8A320;--saffron:#E06C1A;
-  --rust:#C43A2A;--maroon:#8B1A3A;--plum:#5C1F6B;
-  --teal:#0E7C6A;--sky:#1A6FAA;--olive:#5A7A18;
+  --ink:#1A0F00;--muted:#7A6555;--cream:#FDF8F0;
+  --gold:#E8A320;--saffron:#E06C1A;--rust:#C43A2A;
+  --maroon:#8B1A3A;--plum:#5C1F6B;--teal:#0E7C6A;
+  --sky:#1A6FAA;--olive:#5A7A18;--sa-green:#007A4D;
+  --sa-gold:#FFB612;--sa-red:#DE3831;--sa-blue:#002395;--sa-black:#000;--sa-white:#fff;
 }
 html,body{min-height:100%;background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;overflow-x:hidden;}
 
-/* ── HERO ── */
+/* ═══════════════════════════════════
+   PRAYER FLAG STRIP (top of page)
+═══════════════════════════════════ */
+.prayer-flags{
+  width:100%;background:#1a0a00;
+  padding:0;overflow:hidden;
+  position:relative;z-index:10;
+}
+.prayer-rope{
+  width:100%;height:2px;background:linear-gradient(90deg,#8B6030,#FFD87A,#8B6030);
+  position:relative;z-index:2;
+}
+.flags-strip{
+  display:flex;align-items:flex-start;
+  padding:0 0 10px 0;
+  animation:flagScroll 40s linear infinite;
+  white-space:nowrap;
+  width:max-content;
+}
+@keyframes flagScroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.prayer-flag{
+  display:inline-flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  width:90px;height:110px;
+  margin:0 3px;
+  clip-path:polygon(0 0,100% 0,100% 85%,50% 100%,0 85%);
+  position:relative;flex-shrink:0;
+  animation:flagWave 2.5s ease-in-out infinite;
+}
+.prayer-flag:nth-child(2n){animation-delay:0.4s;}
+.prayer-flag:nth-child(3n){animation-delay:0.8s;}
+.prayer-flag:nth-child(4n){animation-delay:1.2s;}
+.prayer-flag:nth-child(5n){animation-delay:1.6s;}
+@keyframes flagWave{
+  0%,100%{transform:skewX(-1deg) scaleY(1);}
+  50%{transform:skewX(2deg) scaleY(1.02);}
+}
+.flag-blue{background:#1A4FA0;}
+.flag-white{background:#F5F0E0;}
+.flag-red{background:#C43A2A;}
+.flag-green{background:#1A7A30;}
+.flag-yellow{background:#D4A820;}
+.flag-orange{background:#E06C1A;}
+.flag-purple{background:#6A2A9A;}
+.flag-teal{background:#0E7C6A;}
+
+.prayer-text{
+  font-family:'Noto Serif Tibetan','DM Sans',serif;
+  font-size:8px;line-height:1.6;
+  text-align:center;padding:8px 4px 16px;
+  font-weight:700;
+  word-break:break-all;
+  white-space:normal;
+  width:100%;
+}
+.flag-blue .prayer-text,.flag-red .prayer-text,.flag-green .prayer-text,
+.flag-orange .prayer-text,.flag-purple .prayer-text,.flag-teal .prayer-text{color:#fff;}
+.flag-white .prayer-text{color:#1A3060;}
+.flag-yellow .prayer-text{color:#4A2000;}
+
+.om-latin{
+  font-size:6px;font-style:italic;
+  margin-top:2px;opacity:0.85;
+  font-family:'DM Sans',sans-serif;
+  white-space:nowrap;
+  letter-spacing:0.02em;
+}
+
+/* ═══════════════════════════════════
+   SA FLAG DIVIDER STRIPE
+═══════════════════════════════════ */
+.sa-stripe{
+  height:18px;display:flex;width:100%;overflow:hidden;
+}
+.sa-stripe>div{flex:1;}
+.sa-s1{background:#007A4D;}
+.sa-s2{background:#000;}
+.sa-s3{background:#DE3831;}
+.sa-s4{background:#002395;}
+.sa-s5{background:#FFB612;}
+.sa-s6{background:#fff;}
+/* V-chevron via CSS clip is complex; use SVG inline instead */
+
+/* ═══════════════════════════════════
+   SA FLAG BAR (proper proportional)
+═══════════════════════════════════ */
+.sa-flag-bar{width:100%;line-height:0;}
+.sa-flag-bar svg{display:block;width:100%;height:28px;}
+
+/* ═══════════════════════════════════
+   HERO
+═══════════════════════════════════ */
 .hero{
-  position:relative;min-height:480px;
+  position:relative;min-height:520px;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;padding:5rem 2rem 6rem;overflow:hidden;
+  text-align:center;padding:5rem 2rem 6.5rem;overflow:hidden;
 }
 .hero-bg{position:absolute;inset:0;width:100%;height:100%;z-index:0;}
 .hero-content{position:relative;z-index:2;}
+
+/* Animated hero text */
 .hero-eyebrow{
   font-size:12px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;
   color:#fff;background:var(--saffron);
   display:inline-block;padding:5px 18px;border-radius:999px;margin-bottom:1.2rem;
+  animation:slideDown 0.8s cubic-bezier(0.34,1.56,0.64,1) both;
 }
 .hero h1{
   font-family:'Playfair Display',serif;
-  font-size:clamp(44px,7vw,84px);font-weight:900;line-height:1.05;
-  color:#fff;text-shadow:0 2px 28px rgba(0,0,0,0.3);margin-bottom:0.6rem;
+  font-size:clamp(44px,7vw,88px);font-weight:900;line-height:1.05;
+  color:#fff;text-shadow:0 2px 28px rgba(0,0,0,0.35);margin-bottom:0.6rem;
+  animation:heroEntrance 1s cubic-bezier(0.34,1.56,0.64,1) 0.2s both;
 }
-.hero h1 em{font-style:italic;color:#FFD87A;}
-.hero-sub{font-size:16px;line-height:1.75;color:rgba(255,255,255,0.88);max-width:480px;margin:0 auto 1.5rem;}
+.hero h1 em{
+  font-style:italic;color:#FFD87A;
+  animation:goldGlow 3s ease-in-out infinite;
+}
+@keyframes goldGlow{
+  0%,100%{text-shadow:0 0 20px rgba(255,216,122,0.4);}
+  50%{text-shadow:0 0 40px rgba(255,216,122,0.9),0 0 80px rgba(232,163,32,0.5);}
+}
+.hero-sub{
+  font-size:16px;line-height:1.75;color:rgba(255,255,255,0.88);
+  max-width:500px;margin:0 auto 1.5rem;
+  animation:fadeUp 1s ease 0.5s both;
+}
 .ubuntu{
   font-family:'Playfair Display',serif;font-style:italic;font-size:14px;
-  color:rgba(255,255,255,0.65);
-  border-top:1px solid rgba(255,255,255,0.25);
+  color:rgba(255,255,255,0.65);border-top:1px solid rgba(255,255,255,0.25);
   padding-top:1rem;display:inline-block;max-width:420px;margin:0 auto;
+  animation:fadeUp 1s ease 0.8s both;
 }
-.bunting-row{position:absolute;top:0;left:0;width:100%;z-index:1;pointer-events:none;}
+@keyframes slideDown{from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:none;}}
+@keyframes heroEntrance{from{opacity:0;transform:scale(0.85);}to{opacity:1;transform:none;}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:none;}}
 
-/* ── COUNTER ── */
+/* Floating SA icons in hero */
+.hero-float{
+  position:absolute;pointer-events:none;
+  font-size:32px;opacity:0.18;z-index:1;
+  animation:floatAround 6s ease-in-out infinite;
+}
+.hero-float:nth-child(1){top:12%;left:5%;animation-delay:0s;font-size:40px;}
+.hero-float:nth-child(2){top:20%;right:7%;animation-delay:1.5s;}
+.hero-float:nth-child(3){bottom:20%;left:8%;animation-delay:3s;font-size:28px;}
+.hero-float:nth-child(4){bottom:15%;right:6%;animation-delay:4.5s;font-size:36px;}
+.hero-float:nth-child(5){top:50%;left:2%;animation-delay:2s;font-size:24px;}
+.hero-float:nth-child(6){top:45%;right:3%;animation-delay:3.5s;font-size:28px;}
+@keyframes floatAround{
+  0%,100%{transform:translateY(0) rotate(-5deg);}
+  33%{transform:translateY(-18px) rotate(5deg);}
+  66%{transform:translateY(10px) rotate(-3deg);}
+}
+
+/* ═══════════════════════════════════
+   COUNTER BELT
+═══════════════════════════════════ */
 .counter-belt{
   background:var(--maroon);padding:14px 24px;text-align:center;
-  font-size:15px;color:#fff;letter-spacing:0.04em;position:relative;overflow:hidden;
+  font-size:15px;color:#fff;position:relative;overflow:hidden;
 }
 .counter-belt::before{
   content:'';position:absolute;inset:0;
   background:repeating-linear-gradient(-45deg,transparent,transparent 18px,rgba(255,255,255,0.04) 18px,rgba(255,255,255,0.04) 36px);
 }
 .counter-belt strong{font-size:20px;font-weight:600;color:#FFD87A;position:relative;}
-.counter-num{display:inline-block;animation:countPulse 0.4s ease;}
-@keyframes countPulse{0%{transform:scale(1.5);}100%{transform:scale(1);}}
+.counter-num{display:inline-block;animation:countPop 0.5s cubic-bezier(0.34,1.56,0.64,1);}
+@keyframes countPop{0%{transform:scale(1.8);}100%{transform:scale(1);}}
 
-/* ── FORM ── */
-.form-section{background:#fff;border-bottom:4px solid var(--gold);padding:3rem 1.5rem;}
+/* ═══════════════════════════════════
+   SA CULTURAL BAND (between counter & form)
+═══════════════════════════════════ */
+.sa-band{
+  background:#1A0A00;
+  padding:1.6rem 2rem;
+  display:flex;align-items:center;justify-content:center;
+  gap:2.5rem;flex-wrap:wrap;
+  position:relative;overflow:hidden;
+}
+.sa-band::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(255,182,18,0.06) 60px,rgba(255,182,18,0.06) 61px);
+}
+.sa-icon-block{
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  animation:saIconBob 4s ease-in-out infinite;
+  position:relative;z-index:1;
+}
+.sa-icon-block:nth-child(2){animation-delay:0.8s;}
+.sa-icon-block:nth-child(3){animation-delay:1.6s;}
+.sa-icon-block:nth-child(4){animation-delay:2.4s;}
+.sa-icon-block:nth-child(5){animation-delay:3.2s;}
+@keyframes saIconBob{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+.sa-icon{font-size:34px;filter:drop-shadow(0 2px 8px rgba(255,182,18,0.4));}
+.sa-label{font-size:10px;color:rgba(255,255,255,0.55);letter-spacing:0.1em;text-transform:uppercase;font-weight:600;}
+
+/* Ndebele pattern strip */
+.ndebele-strip{
+  width:100%;height:24px;overflow:hidden;
+  display:flex;
+}
+.ndebele-block{
+  flex:1;min-width:12px;
+  animation:ndebeleFlash 3s linear infinite;
+}
+@keyframes ndebeleFlash{0%,100%{opacity:1;}50%{opacity:0.7;}}
+
+/* ═══════════════════════════════════
+   FORM SECTION
+═══════════════════════════════════ */
+.form-section{
+  background:#fff;border-bottom:4px solid var(--gold);
+  padding:3rem 1.5rem;position:relative;
+}
+.form-section::after{
+  content:'✦ OM MANI PADME HUM ✦ SAWUBONA ✦ UBUNTU ✦ BAYETHE ✦ THOBELA ✦ OM MANI PADME HUM ✦ SAWUBONA ✦';
+  position:absolute;bottom:-2px;left:0;right:0;
+  font-size:9px;letter-spacing:0.18em;color:var(--gold);
+  text-align:center;padding:4px;
+  background:rgba(255,255,255,0.9);
+  overflow:hidden;white-space:nowrap;
+  animation:marqueeScroll 20s linear infinite;
+}
+@keyframes marqueeScroll{0%{transform:translateX(100%);}100%{transform:translateX(-100%);}}
+
 .form-inner{max-width:580px;margin:0 auto;}
 .section-label{
   font-family:'Playfair Display',serif;font-size:28px;font-weight:700;
   color:var(--maroon);margin-bottom:1.75rem;display:flex;align-items:center;gap:12px;
+  animation:fadeUp 0.8s ease both;
 }
-.section-label .dot{width:10px;height:10px;border-radius:50%;background:var(--saffron);flex-shrink:0;}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--saffron);flex-shrink:0;animation:dotPulse 2s ease-in-out infinite;}
+@keyframes dotPulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(224,108,26,0.5);}50%{transform:scale(1.2);box-shadow:0 0 0 8px rgba(224,108,26,0);}}
+
 .field{margin-bottom:1.25rem;}
 .field label{display:block;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;}
 .field input,.field textarea{
   width:100%;font-family:'DM Sans',sans-serif;font-size:15px;
   border:2px solid #E8DDD0;border-radius:10px;padding:12px 16px;
   background:var(--cream);color:var(--ink);outline:none;
-  transition:border-color 0.15s,box-shadow 0.15s;
+  transition:border-color 0.15s,box-shadow 0.15s,transform 0.15s;
 }
-.field input:focus,.field textarea:focus{border-color:var(--saffron);background:#fff;box-shadow:0 0 0 4px rgba(224,108,26,0.12);}
+.field input:focus,.field textarea:focus{
+  border-color:var(--saffron);background:#fff;
+  box-shadow:0 0 0 4px rgba(224,108,26,0.12);
+  transform:scale(1.01);
+}
 .field textarea{min-height:130px;resize:vertical;line-height:1.65;}
+
 .vibes{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;}
 .vibe-btn{
   display:flex;align-items:center;gap:6px;border-radius:999px;padding:8px 18px;
   font-size:13px;font-family:'DM Sans',sans-serif;cursor:pointer;font-weight:500;
   transition:all 0.18s;border:2px solid #E0D0C4;background:#fff;color:var(--muted);
 }
-.vibe-btn:hover{border-color:var(--saffron);color:var(--saffron);background:#FFF5EE;}
-.vibe-btn.sel{background:var(--saffron);border-color:var(--saffron);color:#fff;box-shadow:0 4px 14px rgba(224,108,26,0.35);}
+.vibe-btn:hover{border-color:var(--saffron);color:var(--saffron);background:#FFF5EE;transform:translateY(-2px) scale(1.05);}
+.vibe-btn.sel{background:var(--saffron);border-color:var(--saffron);color:#fff;box-shadow:0 4px 14px rgba(224,108,26,0.4);transform:translateY(-2px);}
+
 .submit-btn{
   width:100%;padding:16px;background:var(--maroon);color:#fff;
   border:none;border-radius:12px;font-size:16px;font-weight:600;
-  font-family:'DM Sans',sans-serif;cursor:pointer;letter-spacing:0.02em;
+  font-family:'DM Sans',sans-serif;cursor:pointer;
   transition:all 0.2s;margin-top:0.75rem;position:relative;overflow:hidden;
 }
-.submit-btn:hover{background:#6B0E2C;transform:translateY(-2px);box-shadow:0 8px 28px rgba(139,26,58,0.4);}
+.submit-btn:hover{background:#6B0E2C;transform:translateY(-3px);box-shadow:0 10px 32px rgba(139,26,58,0.45);}
+.submit-btn:active{transform:translateY(0);box-shadow:none;}
 .submit-btn:disabled{opacity:0.55;cursor:not-allowed;transform:none;box-shadow:none;}
-.submit-btn .shine{
+.shine{
   position:absolute;top:0;left:-100%;width:60%;height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent);
-  animation:btnShine 2.8s ease-in-out infinite;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);
+  animation:btnShine 2.5s ease-in-out infinite;
 }
 @keyframes btnShine{0%{left:-100%;}60%,100%{left:150%;}}
 .toast{
@@ -102,27 +294,58 @@ html,body{min-height:100%;background:var(--cream);color:var(--ink);font-family:'
   border:2px solid #7BC8A4;border-radius:12px;
   color:#1B6B42;font-size:14px;font-weight:500;
   padding:14px 18px;margin-bottom:1rem;text-align:center;
+  animation:bounceIn 0.5s cubic-bezier(0.34,1.56,0.64,1);
 }
+@keyframes bounceIn{from{transform:scale(0.7);opacity:0;}to{transform:scale(1);opacity:1;}}
 .error-msg{
   display:none;background:#FDE8E8;border:2px solid #F5A5A5;
-  border-radius:12px;color:#8B2020;
-  font-size:14px;padding:14px 18px;margin-bottom:1rem;text-align:center;
+  border-radius:12px;color:#8B2020;font-size:14px;
+  padding:14px 18px;margin-bottom:1rem;text-align:center;
 }
 
-/* ── WALL ── */
-.wall-section{padding:3.5rem 1.5rem 4rem;background:var(--cream);position:relative;overflow:hidden;}
+/* ═══════════════════════════════════
+   WALL SECTION
+═══════════════════════════════════ */
+.wall-section{
+  padding:3.5rem 1.5rem 4rem;
+  background:var(--cream);position:relative;overflow:hidden;
+}
+/* Big watermark letter */
 .wall-section::before{
   content:'M';position:absolute;
-  font-family:'Playfair Display',serif;font-size:40vw;font-weight:900;
-  color:rgba(139,26,58,0.04);top:50%;left:50%;
-  transform:translate(-50%,-50%);pointer-events:none;user-select:none;line-height:1;
+  font-family:'Playfair Display',serif;
+  font-size:45vw;font-weight:900;
+  color:rgba(139,26,58,0.04);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  pointer-events:none;user-select:none;line-height:1;
+  animation:watermarkPulse 8s ease-in-out infinite;
 }
+@keyframes watermarkPulse{0%,100%{opacity:0.04;transform:translate(-50%,-50%) scale(1);}50%{opacity:0.07;transform:translate(-50%,-50%) scale(1.04);}}
+
+/* Animated corner Ndebele patterns */
+.corner-pattern{
+  position:absolute;width:120px;height:120px;
+  pointer-events:none;z-index:0;opacity:0.15;
+  animation:cornerSpin 20s linear infinite;
+}
+.corner-pattern.tl{top:0;left:0;}
+.corner-pattern.tr{top:0;right:0;animation-direction:reverse;}
+.corner-pattern.bl{bottom:0;left:0;animation-direction:reverse;}
+.corner-pattern.br{bottom:0;right:0;}
+@keyframes cornerSpin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+
 .wall-head{
   text-align:center;margin-bottom:0.5rem;
   font-family:'Playfair Display',serif;
-  font-size:32px;font-weight:700;color:var(--ink);position:relative;z-index:1;
+  font-size:32px;font-weight:700;color:var(--ink);
+  position:relative;z-index:1;
+  animation:fadeUp 0.8s ease both;
 }
-.wall-sub{text-align:center;font-size:14px;color:var(--muted);font-style:italic;margin-bottom:2.5rem;position:relative;z-index:1;}
+.wall-sub{
+  text-align:center;font-size:14px;color:var(--muted);
+  font-style:italic;margin-bottom:2.5rem;
+  position:relative;z-index:1;
+}
 
 /* Masonry */
 .wall{column-count:4;column-gap:18px;position:relative;z-index:1;}
@@ -134,119 +357,208 @@ html,body{min-height:100%;background:var(--cream);color:var(--ink);font-family:'
   break-inside:avoid;margin-bottom:18px;border-radius:16px;
   padding:1.2rem 1.4rem 1rem;position:relative;cursor:default;
   display:inline-block;width:100%;
-  transition:transform 0.22s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.22s ease;
-  animation:cardIn 0.55s cubic-bezier(0.34,1.56,0.64,1) both;
+  transition:transform 0.28s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.28s ease;
+  animation:cardIn 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
 }
-.wish-card:hover{transform:scale(1.04) rotate(0deg) !important;box-shadow:0 20px 60px rgba(0,0,0,0.18) !important;z-index:20;}
-@keyframes cardIn{from{opacity:0;transform:scale(0.75) translateY(16px);}to{opacity:1;}}
+.wish-card:hover{
+  transform:scale(1.05) rotate(0deg) !important;
+  box-shadow:0 24px 64px rgba(0,0,0,0.22) !important;
+  z-index:20;
+}
+@keyframes cardIn{from{opacity:0;transform:scale(0.7) translateY(20px);}to{opacity:1;}}
 
-.wc-amber{background:#FFF3D6;border:2px solid #F0C040;--name-c:#7A4A00;--msg-c:#5C3800;--time-c:#A07828;--bar:#E8A320;}
-.wc-rose{background:#FFE8ED;border:2px solid #E8708A;--name-c:#6B1A2C;--msg-c:#4A1020;--time-c:#9B4060;--bar:#C43A5A;}
-.wc-violet{background:#EEE8FF;border:2px solid #9B7AE0;--name-c:#3A1878;--msg-c:#28107A;--time-c:#6A48B0;--bar:#7A40D0;}
-.wc-teal{background:#DFF5EF;border:2px solid #5AC8A8;--name-c:#0A4A38;--msg-c:#083828;--time-c:#2A7A60;--bar:#0E9878;}
-.wc-sky{background:#DDEEFF;border:2px solid #70AADF;--name-c:#0A2E5A;--msg-c:#081E40;--time-c:#2A5A90;--bar:#2A7ACA;}
-.wc-sage{background:#E8F0D8;border:2px solid #88B048;--name-c:#2A4008;--msg-c:#1A3005;--time-c:#4A7018;--bar:#5A8820;}
-.wc-coral{background:#FFE8DF;border:2px solid #E8804A;--name-c:#6A2000;--msg-c:#4A1000;--time-c:#A04820;--bar:#D06030;}
-.wc-mint{background:#E0F8F0;border:2px solid #48C898;--name-c:#084030;--msg-c:#052820;--time-c:#2A7850;--bar:#18A870;}
+.wc-amber{background:#FFF3D6;border:2px solid #F0C040;--nc:#7A4A00;--mc:#5C3800;--tc:#A07828;--bar:#E8A320;}
+.wc-rose{background:#FFE8ED;border:2px solid #E8708A;--nc:#6B1A2C;--mc:#4A1020;--tc:#9B4060;--bar:#C43A5A;}
+.wc-violet{background:#EEE8FF;border:2px solid #9B7AE0;--nc:#3A1878;--mc:#28107A;--tc:#6A48B0;--bar:#7A40D0;}
+.wc-teal{background:#DFF5EF;border:2px solid #5AC8A8;--nc:#0A4A38;--mc:#083828;--tc:#2A7A60;--bar:#0E9878;}
+.wc-sky{background:#DDEEFF;border:2px solid #70AADF;--nc:#0A2E5A;--mc:#081E40;--tc:#2A5A90;--bar:#2A7ACA;}
+.wc-sage{background:#E8F0D8;border:2px solid #88B048;--nc:#2A4008;--mc:#1A3005;--tc:#4A7018;--bar:#5A8820;}
+.wc-coral{background:#FFE8DF;border:2px solid #E8804A;--nc:#6A2000;--mc:#4A1000;--tc:#A04820;--bar:#D06030;}
+.wc-mint{background:#E0F8F0;border:2px solid #48C898;--nc:#084030;--mc:#052820;--tc:#2A7850;--bar:#18A870;}
 
 .wish-card::before{
   content:'';position:absolute;top:0;left:0;right:0;height:5px;
   border-radius:14px 14px 0 0;background:var(--bar,#E8A320);
 }
+
+/* Animated emoji badge */
 .wish-emoji-badge{
-  position:absolute;top:-14px;right:16px;font-size:26px;
-  filter:drop-shadow(0 3px 6px rgba(0,0,0,0.2));
-  animation:emojiWiggle 4s ease-in-out infinite;
+  position:absolute;top:-15px;right:14px;font-size:28px;
+  filter:drop-shadow(0 3px 8px rgba(0,0,0,0.22));
+  animation:emojiWiggle 3.5s ease-in-out infinite;
 }
-@keyframes emojiWiggle{0%,100%{transform:rotate(-8deg);}50%{transform:rotate(8deg);}}
+@keyframes emojiWiggle{
+  0%,100%{transform:rotate(-10deg) scale(1);}
+  25%{transform:rotate(10deg) scale(1.1);}
+  50%{transform:rotate(-6deg) scale(0.95);}
+  75%{transform:rotate(8deg) scale(1.05);}
+}
 .wish-vibe-pill{
   font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;
-  background:rgba(0,0,0,0.08);color:var(--name-c);
+  background:rgba(0,0,0,0.09);color:var(--nc);
   padding:3px 10px;border-radius:999px;display:inline-block;margin-bottom:8px;
 }
-.wish-name{font-size:14px;font-weight:600;color:var(--name-c);margin-bottom:6px;}
-.wish-text{font-family:'Playfair Display',serif;font-size:15px;line-height:1.7;color:var(--msg-c);font-style:italic;}
-.wish-time{font-size:11px;color:var(--time-c);margin-top:10px;text-align:right;opacity:0.8;}
+.wish-name{font-size:14px;font-weight:600;color:var(--nc);margin-bottom:6px;}
+.wish-text{font-family:'Playfair Display',serif;font-size:15px;line-height:1.7;color:var(--mc);font-style:italic;}
+.wish-time{font-size:11px;color:var(--tc);margin-top:10px;text-align:right;opacity:0.8;}
 .loading-msg{text-align:center;padding:3rem;color:var(--muted);font-size:15px;font-style:italic;}
 .empty{display:none;text-align:center;padding:3rem;color:var(--muted);font-size:15px;font-style:italic;}
 
-/* ── FOOTER ── */
-.footer{background:var(--maroon);text-align:center;padding:1.75rem 1rem;font-size:13px;color:rgba(255,255,255,0.65);}
+/* ═══════════════════════════════════
+   SA FLAG FOOTER
+═══════════════════════════════════ */
+.footer-wrap{position:relative;}
+.footer{
+  background:var(--maroon);text-align:center;
+  padding:1.75rem 1rem;font-size:13px;color:rgba(255,255,255,0.65);
+  position:relative;z-index:1;
+}
 .footer span{color:#FFD87A;}
 
-/* ── CONFETTI ── */
+/* Springbok silhouette row */
+.springbok-row{
+  background:#1A0A00;padding:10px 0;
+  display:flex;justify-content:center;align-items:center;
+  gap:28px;overflow:hidden;
+  position:relative;
+}
+.springbok{
+  font-size:28px;opacity:0.7;
+  animation:springbokLeap 2s ease-in-out infinite;
+  filter:sepia(1) saturate(3) hue-rotate(15deg);
+}
+.springbok:nth-child(1){animation-delay:0s;}
+.springbok:nth-child(2){animation-delay:0.3s;}
+.springbok:nth-child(3){animation-delay:0.6s;}
+.springbok:nth-child(4){animation-delay:0.9s;}
+.springbok:nth-child(5){animation-delay:1.2s;}
+.springbok:nth-child(6){animation-delay:1.5s;}
+.springbok:nth-child(7){animation-delay:1.8s;}
+@keyframes springbokLeap{
+  0%,100%{transform:translateY(0) scaleX(1);}
+  30%{transform:translateY(-14px) scaleX(1);}
+  60%{transform:translateY(-6px) scaleX(1);}
+}
+
+/* Om scroll bottom */
+.om-scroll{
+  background:#2A0A18;padding:6px 0;
+  font-size:10px;color:rgba(255,216,122,0.7);
+  letter-spacing:0.2em;text-align:center;
+  white-space:nowrap;overflow:hidden;
+}
+.om-inner{
+  display:inline-block;
+  animation:omScroll 25s linear infinite;
+}
+@keyframes omScroll{0%{transform:translateX(100vw);}100%{transform:translateX(-100%);}}
+
+/* ═══════════════════════════════════
+   CONFETTI
+═══════════════════════════════════ */
 .confetti-piece{
   position:fixed;pointer-events:none;z-index:9999;border-radius:2px;
-  animation:confettiFly 1.6s ease-out forwards;
+  animation:confettiFly 1.8s ease-out forwards;
 }
 @keyframes confettiFly{
   0%{transform:translate(0,0) rotate(0deg) scale(1);opacity:1;}
   100%{transform:translate(var(--tx),var(--ty)) rotate(var(--tr)) scale(0);opacity:0;}
 }
-@media(max-width:600px){.hero h1{font-size:36px;}.section-label{font-size:22px;}}
+
+/* Scroll-reveal utility */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:none;}
+
+@media(max-width:600px){
+  .hero h1{font-size:36px;}
+  .sa-band{gap:1.5rem;}
+  .sa-icon{font-size:26px;}
+}
 </style>
 </head>
 <body>
 
-<!-- HERO -->
+<!-- ═══ PRAYER FLAGS (Om Mani Padme Hum) ═══ -->
+<div class="prayer-flags">
+  <div class="prayer-rope"></div>
+  <div class="flags-strip" id="flagsStrip"></div>
+</div>
+
+<!-- ═══ SA FLAG BAR ═══ -->
+<div class="sa-flag-bar">
+  <svg viewBox="0 0 1440 28" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <!-- SA flag simplified proportional bands -->
+    <rect x="0" y="0" width="1440" height="9.3" fill="#DE3831"/>
+    <rect x="0" y="9.3" width="1440" height="9.3" fill="#fff"/>
+    <rect x="0" y="18.6" width="1440" height="9.4" fill="#002395"/>
+    <!-- Green wedge (Y-shape left) -->
+    <polygon points="0,0 420,14 0,28" fill="#007A4D"/>
+    <!-- Black border of wedge -->
+    <polygon points="0,0 380,14 0,28 0,24 365,14 0,4" fill="#000"/>
+    <!-- Gold border of wedge -->
+    <polygon points="0,0 0,4 365,14 0,24 0,28 380,14" fill="#FFB612"/>
+  </svg>
+</div>
+
+<!-- ═══ HERO ═══ -->
 <div class="hero">
-  <svg class="hero-bg" viewBox="0 0 1440 480" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <!-- Floating SA cultural symbols -->
+  <div class="hero-float">🦁</div>
+  <div class="hero-float">🌺</div>
+  <div class="hero-float">🦒</div>
+  <div class="hero-float">🌍</div>
+  <div class="hero-float">☸️</div>
+  <div class="hero-float">🌸</div>
+
+  <svg class="hero-bg" viewBox="0 0 1440 520" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <linearGradient id="skyGrad" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stop-color="#5C1F6B"/>
-        <stop offset="45%" stop-color="#8B1A3A"/>
+        <stop offset="40%" stop-color="#8B1A3A"/>
         <stop offset="100%" stop-color="#C43A2A"/>
       </linearGradient>
-      <radialGradient id="glow1" cx="30%" cy="50%" r="50%">
-        <stop offset="0%" stop-color="#E8A320" stop-opacity="0.38"/>
+      <radialGradient id="glow1" cx="28%" cy="48%" r="52%">
+        <stop offset="0%" stop-color="#E8A320" stop-opacity="0.42"/>
         <stop offset="100%" stop-color="#5C1F6B" stop-opacity="0"/>
       </radialGradient>
-      <radialGradient id="glow2" cx="78%" cy="38%" r="42%">
-        <stop offset="0%" stop-color="#E06C1A" stop-opacity="0.3"/>
+      <radialGradient id="glow2" cx="78%" cy="36%" r="44%">
+        <stop offset="0%" stop-color="#E06C1A" stop-opacity="0.34"/>
         <stop offset="100%" stop-color="#8B1A3A" stop-opacity="0"/>
       </radialGradient>
     </defs>
-    <rect width="1440" height="480" fill="url(#skyGrad)"/>
-    <rect width="1440" height="480" fill="url(#glow1)"/>
-    <rect width="1440" height="480" fill="url(#glow2)"/>
-    <!-- Big geometric triangles -->
-    <polygon points="0,480 300,180 600,480" fill="#C43A2A" opacity="0.32"/>
-    <polygon points="1440,0 1180,280 1440,480" fill="#5C1F6B" opacity="0.38"/>
-    <polygon points="580,480 820,160 1060,480" fill="#8B1A3A" opacity="0.28"/>
-    <polygon points="0,0 240,0 0,240" fill="#5C1F6B" opacity="0.5"/>
-    <polygon points="1440,480 1200,480 1440,240" fill="#C43A2A" opacity="0.3"/>
-    <!-- Circles / orbs -->
-    <circle cx="160" cy="110" r="200" fill="#E8A320" opacity="0.10"/>
-    <circle cx="1280" cy="360" r="240" fill="#E06C1A" opacity="0.10"/>
-    <circle cx="720" cy="-30" r="150" fill="#fff" opacity="0.04"/>
-    <!-- Scattered gems -->
-    <g opacity="0.65">
-      <rect x="80" y="55" width="20" height="20" rx="3" fill="#FFD87A" transform="rotate(45 90 65)"/>
-      <rect x="330" y="32" width="14" height="14" rx="2" fill="#fff" transform="rotate(20 337 39)"/>
-      <rect x="710" y="18" width="24" height="24" rx="4" fill="#FFD87A" transform="rotate(-30 722 30)"/>
-      <rect x="1060" y="48" width="16" height="16" rx="3" fill="#fff" transform="rotate(40 1068 56)"/>
-      <rect x="1385" y="85" width="20" height="20" rx="3" fill="#FFD87A" transform="rotate(-15 1395 95)"/>
-      <rect x="210" y="345" width="12" height="12" rx="2" fill="#fff" transform="rotate(25 216 351)"/>
-      <rect x="920" y="375" width="18" height="18" rx="3" fill="#FFD87A" transform="rotate(50 929 384)"/>
-      <rect x="1310" y="395" width="14" height="14" rx="2" fill="#fff" transform="rotate(-20 1317 402)"/>
-      <circle cx="460" cy="55" r="6" fill="#fff" opacity="0.7"/>
-      <circle cx="980" cy="42" r="8" fill="#FFD87A" opacity="0.7"/>
-      <circle cx="1150" cy="310" r="5" fill="#fff" opacity="0.6"/>
-      <circle cx="55" cy="310" r="7" fill="#FFD87A" opacity="0.6"/>
+    <rect width="1440" height="520" fill="url(#skyGrad)"/>
+    <rect width="1440" height="520" fill="url(#glow1)"/>
+    <rect width="1440" height="520" fill="url(#glow2)"/>
+    <!-- Geometric shapes -->
+    <polygon points="0,520 320,180 640,520" fill="#C43A2A" opacity="0.3"/>
+    <polygon points="1440,0 1180,300 1440,520" fill="#5C1F6B" opacity="0.38"/>
+    <polygon points="580,520 830,150 1080,520" fill="#8B1A3A" opacity="0.26"/>
+    <polygon points="0,0 260,0 0,260" fill="#4A0F58" opacity="0.5"/>
+    <polygon points="1440,520 1200,520 1440,260" fill="#B02A20" opacity="0.3"/>
+    <!-- Orbs -->
+    <circle cx="155" cy="105" r="210" fill="#E8A320" opacity="0.09"/>
+    <circle cx="1290" cy="370" r="250" fill="#E06C1A" opacity="0.09"/>
+    <!-- Ndebele-inspired diamond pattern -->
+    <g opacity="0.25">
+      <rect x="60" y="50" width="22" height="22" fill="#FFD87A" transform="rotate(45 71 61)"/>
+      <rect x="320" y="28" width="16" height="16" fill="#fff" transform="rotate(20 328 36)"/>
+      <rect x="700" y="15" width="26" height="26" fill="#FFD87A" transform="rotate(-30 713 28)"/>
+      <rect x="1050" y="44" width="18" height="18" fill="#fff" transform="rotate(40 1059 53)"/>
+      <rect x="1390" y="80" width="22" height="22" fill="#FFD87A" transform="rotate(-15 1401 91)"/>
+      <rect x="210" y="340" width="14" height="14" fill="#fff" transform="rotate(25 217 347)"/>
+      <rect x="920" y="370" width="20" height="20" fill="#FFD87A" transform="rotate(50 930 380)"/>
+      <rect x="480" y="62" width="14" height="14" fill="#fff" transform="rotate(30 487 69)"/>
+      <rect x="980" y="38" width="20" height="20" fill="#FFD87A" transform="rotate(-25 990 48)"/>
     </g>
     <!-- Stars -->
-    <g fill="#fff" opacity="0.75" font-size="24" font-family="serif">
-      <text x="50" y="205">✦</text>
-      <text x="430" y="88">✧</text>
-      <text x="960" y="58">✦</text>
-      <text x="1360" y="195">✧</text>
-      <text x="130" y="405">✦</text>
-      <text x="810" y="425">✧</text>
-      <text x="565" y="145">✦</text>
-      <text x="1200" y="130">✧</text>
+    <g fill="#fff" opacity="0.8" font-size="26" font-family="serif">
+      <text x="48" y="208">✦</text><text x="432" y="85">✧</text>
+      <text x="958" y="55">✦</text><text x="1365" y="198">✧</text>
+      <text x="128" y="408">✦</text><text x="812" y="428">✧</text>
+      <text x="568" y="142">✦</text><text x="1198" y="128">✧</text>
     </g>
-    <!-- Dotted pattern overlay -->
-    <g fill="#fff" opacity="0.07">
+    <!-- Dot grid -->
+    <g fill="#fff" opacity="0.06">
       <circle cx="100" cy="240" r="3"/><circle cx="200" cy="240" r="3"/><circle cx="300" cy="240" r="3"/>
       <circle cx="400" cy="240" r="3"/><circle cx="500" cy="240" r="3"/><circle cx="600" cy="240" r="3"/>
       <circle cx="700" cy="240" r="3"/><circle cx="800" cy="240" r="3"/><circle cx="900" cy="240" r="3"/>
@@ -259,32 +571,39 @@ html,body{min-height:100%;background:var(--cream);color:var(--ink);font-family:'
       <circle cx="1350" cy="320" r="3"/>
     </g>
     <!-- Wavy cream bottom -->
-    <path d="M0 440 Q180 390 360 432 Q540 474 720 422 Q900 370 1080 422 Q1260 474 1440 432 L1440 480 L0 480Z" fill="#FDF8F0" opacity="0.97"/>
-  </svg>
-
-  <!-- Bunting -->
-  <svg class="bunting-row" height="60" viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" id="buntingsvg">
-    <line x1="0" y1="8" x2="1440" y2="8" stroke="#FFD87A" stroke-width="1.5" opacity="0.7"/>
+    <path d="M0 450 Q180 395 360 440 Q540 485 720 430 Q900 375 1080 430 Q1260 485 1440 440 L1440 520 L0 520Z" fill="#FDF8F0" opacity="0.98"/>
   </svg>
 
   <div class="hero-content">
-    <p class="hero-eyebrow">A journey well travelled</p>
+    <p class="hero-eyebrow">✦ A journey well travelled ✦</p>
     <h1>Here&#39;s to you,<br><em>Marius O</em></h1>
     <p class="hero-sub">From the Highveld to wherever the next chapter leads — share your message and let him carry your words into this new season of life.</p>
-    <p class="ubuntu">&ldquo;Umuntu ngumuntu ngabantu&rdquo; &mdash; a person is a person through other people.</p>
+    <p class="ubuntu">&ldquo;Umuntu ngumuntu ngabantu&rdquo;<br>a person is a person through other people.</p>
   </div>
 </div>
 
-<!-- COUNTER -->
+<!-- ═══ COUNTER ═══ -->
 <div class="counter-belt">
   <span>🙏 &nbsp;<strong><span id="count" class="counter-num">...</span></strong>&nbsp; messages of goodwill sent to Marius</span>
 </div>
 
-<!-- FORM -->
-<div class="form-section">
+<!-- ═══ SA CULTURAL BAND ═══ -->
+<div class="sa-band">
+  <div class="sa-icon-block"><span class="sa-icon">🦁</span><span class="sa-label">Simba</span></div>
+  <div class="sa-icon-block"><span class="sa-icon">🌺</span><span class="sa-label">Protea</span></div>
+  <div class="sa-icon-block"><span class="sa-icon">🥁</span><span class="sa-label">Ubuntu</span></div>
+  <div class="sa-icon-block"><span class="sa-icon">🦒</span><span class="sa-label">Thabo</span></div>
+  <div class="sa-icon-block"><span class="sa-icon">☸️</span><span class="sa-label">Om Mani</span></div>
+</div>
+
+<!-- Ndebele pattern strip -->
+<div class="ndebele-strip" id="ndebeleStrip"></div>
+
+<!-- ═══ FORM ═══ -->
+<div class="form-section reveal">
   <div class="form-inner">
     <h2 class="section-label"><span class="dot"></span>Leave your wish for Marius</h2>
-    <div class="toast" id="toast">✨ Your wish has been sent — may it travel far with him.</div>
+    <div class="toast" id="toast">✨ Your wish has been sent — may it travel far with him. 🙏</div>
     <div class="error-msg" id="error">Something went wrong. Please try again.</div>
     <div class="field">
       <label>Your name</label>
@@ -292,7 +611,7 @@ html,body{min-height:100%;background:var(--cream);color:var(--ink);font-family:'
     </div>
     <div class="field">
       <label>Your message</label>
-      <textarea id="msg-in" placeholder="A memory, a thank you, a blessing..."></textarea>
+      <textarea id="msg-in" placeholder="A memory, a thank you, a blessing... Sawubona Marius!"></textarea>
     </div>
     <div class="field">
       <label>Your tone</label>
@@ -311,19 +630,88 @@ html,body{min-height:100%;background:var(--cream);color:var(--ink);font-family:'
   </div>
 </div>
 
-<!-- WALL -->
+<!-- ═══ WALL ═══ -->
 <div class="wall-section">
-  <h2 class="wall-head">✦ Messages for Marius</h2>
-  <p class="wall-sub">Every voice from his journey, gathered in one place</p>
+  <!-- Ndebele corner SVGs -->
+  <svg class="corner-pattern tl" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="30" height="30" fill="#DE3831"/>
+    <rect x="30" y="0" width="30" height="30" fill="#FFB612"/>
+    <rect x="0" y="30" width="30" height="30" fill="#007A4D"/>
+    <rect x="30" y="30" width="30" height="30" fill="#002395"/>
+    <rect x="60" y="0" width="15" height="15" fill="#fff"/>
+    <rect x="0" y="60" width="15" height="15" fill="#fff"/>
+    <rect x="60" y="60" width="30" height="30" fill="#DE3831"/>
+    <rect x="90" y="0" width="30" height="30" fill="#007A4D"/>
+    <rect x="0" y="90" width="30" height="30" fill="#FFB612"/>
+    <polygon points="60,30 90,30 75,60" fill="#fff"/>
+    <polygon points="30,60 30,90 60,75" fill="#FFB612"/>
+  </svg>
+  <svg class="corner-pattern tr" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <rect x="90" y="0" width="30" height="30" fill="#002395"/>
+    <rect x="60" y="0" width="30" height="30" fill="#DE3831"/>
+    <rect x="90" y="30" width="30" height="30" fill="#FFB612"/>
+    <rect x="60" y="30" width="30" height="30" fill="#007A4D"/>
+    <rect x="45" y="0" width="15" height="15" fill="#fff"/>
+    <rect x="105" y="60" width="15" height="15" fill="#fff"/>
+    <polygon points="30,30 60,30 45,60" fill="#FFB612"/>
+    <rect x="0" y="0" width="30" height="30" fill="#FFB612"/>
+  </svg>
+  <svg class="corner-pattern bl" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="90" width="30" height="30" fill="#007A4D"/>
+    <rect x="30" y="90" width="30" height="30" fill="#DE3831"/>
+    <rect x="0" y="60" width="30" height="30" fill="#002395"/>
+    <rect x="30" y="60" width="30" height="30" fill="#FFB612"/>
+    <polygon points="60,60 90,60 75,90" fill="#DE3831"/>
+    <rect x="60" y="90" width="30" height="30" fill="#fff"/>
+  </svg>
+  <svg class="corner-pattern br" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <rect x="90" y="90" width="30" height="30" fill="#002395"/>
+    <rect x="60" y="90" width="30" height="30" fill="#007A4D"/>
+    <rect x="90" y="60" width="30" height="30" fill="#DE3831"/>
+    <rect x="60" y="60" width="30" height="30" fill="#FFB612"/>
+    <polygon points="30,60 60,60 45,90" fill="#fff"/>
+    <rect x="0" y="90" width="30" height="30" fill="#DE3831"/>
+  </svg>
+
+  <h2 class="wall-head">✦ Messages for Marius ✦</h2>
+  <p class="wall-sub">Every voice from his journey, gathered in one place — Sawubona!</p>
   <div class="wall" id="wish-wall">
     <p class="loading-msg" id="loading-msg">Loading messages of goodwill…</p>
   </div>
-  <p class="empty" id="empty">Be the first to leave a wish for Marius!</p>
+  <p class="empty" id="empty">Be the first to leave a wish for Marius — Bayethe!</p>
 </div>
 
-<!-- FOOTER -->
+<!-- ═══ SPRINGBOK ROW ═══ -->
+<div class="springbok-row">
+  <span class="springbok">🦌</span>
+  <span class="springbok">🦌</span>
+  <span class="springbok">🦌</span>
+  <span class="springbok">🦌</span>
+  <span class="springbok">🦌</span>
+  <span class="springbok">🦌</span>
+  <span class="springbok">🦌</span>
+</div>
+
+<!-- ═══ SA FLAG BAR ═══ -->
+<div class="sa-flag-bar">
+  <svg viewBox="0 0 1440 18" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <rect x="0" y="0" width="1440" height="6" fill="#DE3831"/>
+    <rect x="0" y="6" width="1440" height="6" fill="#fff"/>
+    <rect x="0" y="12" width="1440" height="6" fill="#002395"/>
+    <polygon points="0,0 280,9 0,18" fill="#007A4D"/>
+    <polygon points="0,0 0,3 248,9 0,15 0,18 262,9" fill="#FFB612"/>
+    <polygon points="0,0 0,3 248,9 0,15 0,18 0,18 238,9 0,0" fill="#000" opacity="0.4"/>
+  </svg>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
 <div class="footer">
-  Made with love by your team &nbsp;·&nbsp; <span>May your path be peaceful 🙏</span>
+  Made with love &nbsp;·&nbsp; <span>Sala kakuhle, Marius O 🙏</span> &nbsp;·&nbsp; Ubuntu • Bayethe • Om Mani Padme Hum
+</div>
+
+<!-- ═══ OM SCROLL ═══ -->
+<div class="om-scroll">
+  <span class="om-inner">☸ OM MANI PADME HUM ☸ OM MANI PADME HUM ☸ SAWUBONA ☸ UBUNTU ☸ BAYETHE ☸ THOBELA ☸ SALA KAKUHLE ☸ OM MANI PADME HUM ☸ OM MANI PADME HUM ☸ SAWUBONA ☸ UBUNTU ☸ BAYETHE ☸ THOBELA ☸ SALA KAKUHLE ☸ OM MANI PADME HUM ☸</span>
 </div>
 
 <script>
@@ -332,24 +720,60 @@ var THEMES=['wc-amber','wc-rose','wc-violet','wc-teal','wc-sky','wc-sage','wc-co
 var EMOJIS={Grateful:'🙏',Celebratory:'🎉',Warm:'❤️',Nostalgic:'🌅',Cheeky:'😄'};
 var ROTS=[-2.8,-1.6,-0.6,0,0.7,1.8,2.5,-1.2,1.2,-2.2,0.4,-0.4,2.0,-1.8,0.9];
 
-/* Bunting */
+/* ── Prayer flags ── */
 (function(){
-  var svg=document.getElementById('buntingsvg');
-  var colors=["#E8A320","#C43A2A","#5C1F6B","#0E7C6A","#1A6FAA","#5A7A18","#E06C1A","#8B1A3A"];
-  for(var i=0;i<38;i++){
-    var x=i*38+1;var c=colors[i%colors.length];
-    var p=document.createElementNS('http://www.w3.org/2000/svg','polygon');
-    p.setAttribute('points',x+',8 '+(x+34)+',8 '+(x+17)+',52');
-    p.setAttribute('fill',c);p.setAttribute('opacity','0.9');
-    svg.appendChild(p);
-    var cl=document.createElementNS('http://www.w3.org/2000/svg','circle');
-    cl.setAttribute('cx',x+'');cl.setAttribute('cy','8');
-    cl.setAttribute('r','3.5');cl.setAttribute('fill','#FFD87A');
-    svg.appendChild(cl);
+  var strip=document.getElementById('flagsStrip');
+  var colors=[
+    {cls:'flag-blue',tc:'#fff'},
+    {cls:'flag-white',tc:'#1A3060'},
+    {cls:'flag-red',tc:'#fff'},
+    {cls:'flag-green',tc:'#fff'},
+    {cls:'flag-yellow',tc:'#4A2000'},
+    {cls:'flag-orange',tc:'#fff'},
+    {cls:'flag-purple',tc:'#fff'},
+    {cls:'flag-teal',tc:'#fff'}
+  ];
+  /* Tibetan script Unicode for OM MANI PADME HUM */
+  var tibetan='ༀ་མ་ཎི་པདྨེ་ཧཱུྃ';
+  var latin='Om Mani Padme Hum';
+  /* Build 80 flags (2 full sets for seamless loop) */
+  var html='';
+  for(var i=0;i<80;i++){
+    var c=colors[i%colors.length];
+    var delay=(i*0.05)%2.5;
+    html+='<div class="prayer-flag '+c.cls+'" style="animation-delay:'+delay+'s">'
+      +'<div class="prayer-text" style="color:'+c.tc+'">'
+      +tibetan+'<br>'
+      +'<span class="om-latin" style="color:'+c.tc+'">'+latin+'</span>'
+      +'</div>'
+      +'</div>';
   }
+  strip.innerHTML=html;
+  /* duplicate for seamless loop */
+  strip.innerHTML+=strip.innerHTML;
 })();
 
-/* Vibe */
+/* ── Ndebele strip ── */
+(function(){
+  var strip=document.getElementById('ndebeleStrip');
+  var colors=['#DE3831','#000','#007A4D','#FFB612','#002395','#fff','#E06C1A','#5C1F6B','#FFD87A','#C43A2A'];
+  var html='';
+  for(var i=0;i<200;i++){
+    var c=colors[i%colors.length];
+    html+='<div class="ndebele-block" style="background:'+c+';animation-delay:'+(i*0.04)+'s"></div>';
+  }
+  strip.innerHTML=html;
+})();
+
+/* ── Scroll reveal ── */
+var observer=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}
+  });
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(function(el){observer.observe(el);});
+
+/* ── Vibe selector ── */
 var sel='Grateful';
 document.querySelectorAll('.vibe-btn').forEach(function(b){
   b.addEventListener('click',function(){
@@ -375,9 +799,9 @@ function buildWall(wishes){
     var rot=ROTS[i%ROTS.length];
     var emoji=EMOJIS[w.vibe]||'✦';
     var card=document.createElement('div');
-    card.className='wish-card '+theme;
+    card.className='wish-card '+theme+' reveal';
     card.style.transform='rotate('+rot+'deg)';
-    card.style.animationDelay=(i*0.05)+'s';
+    card.style.animationDelay=(i*0.06)+'s';
     card.innerHTML=
       '<span class="wish-emoji-badge">'+emoji+'</span>'+
       '<div class="wish-vibe-pill">'+esc(w.vibe)+'</div>'+
@@ -386,6 +810,8 @@ function buildWall(wishes){
       '<p class="wish-time">'+timeAgo(w.ts)+'</p>';
     card.addEventListener('mouseleave',function(){this.style.transform='rotate('+rot+'deg)';});
     wall.appendChild(card);
+    /* observe for scroll-reveal */
+    observer.observe(card);
   });
 }
 
@@ -408,37 +834,44 @@ function loadWishes(){
 }
 loadWishes();setInterval(loadWishes,30000);
 
+/* ── Confetti burst ── */
 function burst(ox,oy){
-  var colors=['#E8A320','#C43A2A','#5C1F6B','#0E7C6A','#1A6FAA','#E06C1A','#FFD87A','#5A7A18','#fff'];
-  for(var i=0;i<60;i++){
-    var p=document.createElement('div');p.className='confetti-piece';
+  var colors=['#E8A320','#C43A2A','#5C1F6B','#0E7C6A','#1A6FAA','#E06C1A','#FFD87A','#5A7A18','#fff','#007A4D','#FFB612','#DE3831'];
+  for(var i=0;i<70;i++){
+    var p=document.createElement('div');
+    p.className='confetti-piece';
     p.style.left=ox+'px';p.style.top=oy+'px';
-    p.style.width=(Math.random()*12+5)+'px';p.style.height=(Math.random()*12+5)+'px';
+    p.style.width=(Math.random()*14+5)+'px';
+    p.style.height=(Math.random()*14+5)+'px';
     p.style.background=colors[Math.floor(Math.random()*colors.length)];
-    p.style.borderRadius=Math.random()>0.5?'50%':'3px';
-    p.style.setProperty('--tx',(Math.random()*400-200)+'px');
-    p.style.setProperty('--ty',(Math.random()*-380-80)+'px');
-    p.style.setProperty('--tr',(Math.random()*900-450)+'deg');
-    p.style.animationDuration=(0.9+Math.random()*0.8)+'s';
+    p.style.borderRadius=Math.random()>0.4?'50%':'3px';
+    p.style.setProperty('--tx',(Math.random()*460-230)+'px');
+    p.style.setProperty('--ty',(Math.random()*-420-80)+'px');
+    p.style.setProperty('--tr',(Math.random()*1000-500)+'deg');
+    p.style.animationDuration=(0.8+Math.random()*1.2)+'s';
     document.body.appendChild(p);
     p.addEventListener('animationend',function(){this.remove();});
   }
 }
 
+/* ── Submit ── */
 document.getElementById('submit-btn').addEventListener('click',function(){
   var name=document.getElementById('name-in').value.trim();
   var msg=document.getElementById('msg-in').value.trim();
-  if(!name||!msg){alert('Please add your name and a message.');return;}
+  if(!name||!msg){alert('Please add your name and a message. Sawubona! 🙏');return;}
   var btn=this;btn.disabled=true;
   btn.childNodes[1].textContent=' Sending…';
   fetch(SCRIPT_URL,{method:'POST',body:JSON.stringify({name:name,msg:msg,vibe:sel})})
     .then(function(r){return r.json();})
     .then(function(data){
       if(data.success){
-        document.getElementById('name-in').value='';document.getElementById('msg-in').value='';
-        var t=document.getElementById('toast');t.style.display='block';
-        setTimeout(function(){t.style.display='none';},4000);
-        var rect=btn.getBoundingClientRect();burst(rect.left+rect.width/2,rect.top+rect.height/2);
+        document.getElementById('name-in').value='';
+        document.getElementById('msg-in').value='';
+        var t=document.getElementById('toast');
+        t.style.display='block';
+        setTimeout(function(){t.style.display='none';},4500);
+        var rect=btn.getBoundingClientRect();
+        burst(rect.left+rect.width/2,rect.top+rect.height/2);
         loadWishes();
       } else {
         document.getElementById('error').style.display='block';
@@ -450,7 +883,8 @@ document.getElementById('submit-btn').addEventListener('click',function(){
       setTimeout(function(){document.getElementById('error').style.display='none';},4000);
     })
     .finally(function(){
-      btn.disabled=false;btn.childNodes[1].textContent=' Send my wish →';
+      btn.disabled=false;
+      btn.childNodes[1].textContent=' Send my wish →';
     });
 });
 </script>
